@@ -406,29 +406,301 @@ $navLinks = [
                 flex: 1 1 100%;
             }
         }
-    </style>
+    
+/* =========================================================
+   VIGOR GYM — ADMIN THEME MATCHED TO THE MEMBER PORTAL
+   Visual layer only. Existing application logic is retained.
+   ========================================================= */
+:root {
+    --vg-purple: #a245ff;
+    --vg-purple-dark: #7c2cf4;
+    --vg-purple-light: #ca7bff;
+    --vg-sidebar-top: rgba(42, 26, 47, 0.94);
+    --vg-sidebar-bottom: rgba(34, 5, 61, 0.96);
+    --vg-glass-border: rgba(202, 123, 255, 0.22);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-image: url('bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #fff;
+    min-height: 100vh;
+}
+
+.admin-dashboard {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.55);
+    border-radius: 10px;
+}
+
+nav.sidebar,
+.sidebar {
+    width: 210px;
+    min-width: 210px;
+    flex: 0 0 210px;
+    height: calc(100vh - 40px);
+    min-height: 600px;
+    position: sticky;
+    top: 20px;
+    padding: 16px;
+    overflow-y: auto;
+    border: 1px solid rgba(202, 123, 255, 0.12);
+    border-radius: 12px;
+    background: linear-gradient(180deg, var(--vg-sidebar-top) 0%, var(--vg-sidebar-bottom) 100%);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.sidebar-brand {
+    min-height: 74px;
+    margin: 0 0 12px;
+    padding: 12px 8px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 1px solid rgba(202, 123, 255, 0.42);
+    border-radius: 9px;
+    background: linear-gradient(135deg, rgba(119, 39, 180, 0.34), rgba(50, 15, 79, 0.50));
+    box-shadow: inset 0 0 18px rgba(202, 123, 255, 0.06);
+}
+
+.sidebar-brand-name {
+    color: #fff;
+    font-size: 17px;
+    line-height: 1.15;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.sidebar-brand-name span {
+    color: #d7a2ff;
+}
+
+.sidebar-brand-subtitle {
+    margin-top: 5px;
+    color: #eadcff;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.sidebar-profile {
+    min-height: 58px;
+    margin-bottom: 14px;
+    padding: 9px 10px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    border: 1px solid rgba(202, 123, 255, 0.30);
+    border-radius: 9px;
+    background: rgba(171, 82, 242, 0.16);
+}
+
+.sidebar-avatar {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 15px;
+    background: linear-gradient(145deg, #e4a8ff, #9138d9);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.20);
+}
+
+.sidebar-profile-info {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+}
+
+.sidebar-profile-name {
+    overflow: hidden;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 800;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sidebar-profile-role {
+    margin-top: 3px;
+    color: #eadcff;
+    font-size: 9px;
+    font-weight: 500;
+}
+
+nav.sidebar ul,
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav.sidebar ul li,
+.sidebar ul li {
+    margin: 7px 0;
+}
+
+nav.sidebar ul li a,
+.sidebar ul li a {
+    min-height: 43px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 10px 11px;
+    color: #fff;
+    font-size: 11px;
+    line-height: 1.35;
+    font-weight: 700;
+    text-decoration: none;
+    border: 1px solid transparent;
+    border-left: 4px solid transparent;
+    border-radius: 8px;
+    transition: all 0.25s ease;
+}
+
+nav.sidebar ul li a i,
+.sidebar ul li a i {
+    width: 16px;
+    min-width: 16px;
+    color: #d7a2ff;
+    font-size: 13px;
+    text-align: center;
+}
+
+nav.sidebar ul li a:hover,
+nav.sidebar ul li a.active,
+.sidebar ul li a:hover,
+.sidebar ul li a.active {
+    color: #fff;
+    background: linear-gradient(90deg, rgba(171, 82, 242, 0.34), rgba(171, 82, 242, 0.10));
+    border-left-color: #ca7bff;
+    padding-left: 14px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+}
+
+nav.sidebar ul li a:hover i,
+nav.sidebar ul li a.active i,
+.sidebar ul li a:hover i,
+.sidebar ul li a.active i {
+    color: #f1d7ff;
+}
+
+.main,
+.dashboard-content {
+    flex: 1;
+    min-width: 0;
+}
+
+h1 {
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.glass,
+.members-list,
+.overview-item,
+.details-card,
+.report-card,
+.card,
+.panel,
+.table-card,
+.filter-card,
+.summary-card {
+    border-color: var(--vg-glass-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+@media (max-width: 768px) {
+    .admin-dashboard {
+        flex-direction: column;
+        gap: 14px;
+        padding: 12px;
+    }
+
+    nav.sidebar,
+    .sidebar {
+        position: relative;
+        top: 0;
+        width: 100%;
+        min-width: 0;
+        flex: 0 0 auto;
+        height: auto;
+        min-height: 0;
+    }
+
+    nav.sidebar ul,
+    .sidebar ul {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 4px 7px;
+    }
+
+    nav.sidebar ul li,
+    .sidebar ul li {
+        margin: 2px 0;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+}
+
+</style>
 </head>
 <body>
 <div class="admin-dashboard">
     <nav class="sidebar">
-        <div class="sidebar-title-container">
-            <h2 class="admin-interface-title">Admin Interface</h2>
-        </div>
+    <div class="sidebar-brand">
+        <div class="sidebar-brand-name">VIGOR <span>GYM</span></div>
+        <div class="sidebar-brand-subtitle">ADMIN PORTAL</div>
+    </div>
 
-        <ul>
-            <?php
-                $currentPage = basename($_SERVER['PHP_SELF']);
-                foreach ($navLinks as $href => [$label, $active, $icon]):
-                    $isActive = ($currentPage == basename($href)) ? 'active' : '';
-            ?>
-                <li>
-                    <a href="<?= safe($href) ?>" class="<?= $isActive ?>">
-                        <i class="<?= safe($icon) ?>"></i> <?= safe($label) ?>
-                    </a>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    </nav>
+    <div class="sidebar-profile">
+        <div class="sidebar-avatar"><i class="fas fa-user"></i></div>
+        <div class="sidebar-profile-info">
+            <span class="sidebar-profile-name">Administrator</span>
+            <span class="sidebar-profile-role">Admin</span>
+        </div>
+    </div>
+
+    <ul>
+        <?php
+            $currentPage = basename($_SERVER['PHP_SELF']);
+            foreach ($navLinks as $href => [$label, $active, $icon]):
+                $isActive = ($currentPage === basename(parse_url($href, PHP_URL_PATH))) ? 'active' : '';
+        ?>
+            <li>
+                <a href="<?= htmlspecialchars($href, ENT_QUOTES, 'UTF-8') ?>" class="<?= $isActive ?>">
+                    <i class="<?= htmlspecialchars($icon, ENT_QUOTES, 'UTF-8') ?>"></i>
+                    <span><?= htmlspecialchars($label, ENT_QUOTES, 'UTF-8') ?></span>
+                </a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</nav>
 
     <div class="dashboard-content">
         <h1>Admin Dashboard</h1>
