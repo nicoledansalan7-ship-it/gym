@@ -432,24 +432,280 @@ $navLinks = [
                 width: 100%;
             }
         }
+
+
+        /* VIGOR GYM USER INTERFACE REFINEMENTS */
+        .sidebar-title-container {
+            padding: 20px 12px 18px;
+            margin-bottom: 18px;
+            background: linear-gradient(135deg, rgba(85, 35, 125, 0.78), rgba(35, 10, 55, 0.96));
+            text-align: center;
+            border: 1px solid rgba(202, 123, 255, 0.25);
+            border-radius: 12px;
+        }
+
+        .sidebar-brand-name {
+            color: #ffffff;
+            font-size: 23px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            line-height: 1.2;
+        }
+
+        .sidebar-brand-name span {
+            color: #d9a5ff;
+        }
+
+        .sidebar-brand-subtitle {
+            margin-top: 6px;
+            color: #eadcff;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 3px;
+        }
+
+        .sidebar-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            margin-bottom: 20px;
+            background: rgba(171, 82, 242, 0.13);
+            border: 1px solid rgba(202, 123, 255, 0.25);
+            border-radius: 12px;
+        }
+
+        .profile-icon {
+            width: 42px;
+            height: 42px;
+            min-width: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #d18aff, #8734c5);
+            color: #ffffff;
+            font-size: 18px;
+        }
+
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .profile-info strong {
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 700;
+            overflow-wrap: anywhere;
+        }
+
+        .profile-info span {
+            color: #d9baff;
+            font-size: 11px;
+            margin-top: 3px;
+        }
+
+        nav.sidebar ul li {
+            margin: 10px 0;
+        }
+
+        nav.sidebar ul li a {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            min-height: 48px;
+            padding: 12px 13px;
+            border-radius: 9px;
+            border-left: 5px solid transparent;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.25s ease, color 0.25s ease, padding 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        nav.sidebar ul li a i {
+            width: 22px;
+            min-width: 22px;
+            text-align: center;
+            color: #d9a5ff;
+            font-size: 16px;
+        }
+
+        nav.sidebar ul li a span {
+            line-height: 1.4;
+        }
+
+        nav.sidebar ul li a:hover {
+            background: rgba(171, 82, 242, 0.22);
+            border-left-color: #ca7bff;
+            padding-left: 18px;
+            color: #f0caff;
+            box-shadow: 0 3px 12px rgba(171, 82, 242, 0.12);
+        }
+
+        nav.sidebar ul li a.active {
+            background: linear-gradient(90deg, rgba(171, 82, 242, 0.45), rgba(115, 45, 160, 0.20));
+            border-left-color: #e2a5ff;
+            color: #ffffff;
+            font-weight: 700;
+            box-shadow: 0 0 12px rgba(190, 100, 255, 0.18);
+        }
+
+        .page-heading {
+            position: relative;
+            padding: 4px 0 16px;
+            margin-bottom: 2px;
+        }
+
+        .page-title {
+            position: relative;
+            display: inline-block;
+            margin: 0 0 8px;
+            color: #ffffff;
+            font-size: 36px;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+        }
+
+        .page-title::after {
+            content: "";
+            display: block;
+            width: 76px;
+            height: 4px;
+            margin-top: 10px;
+            border-radius: 99px;
+            background: linear-gradient(90deg, #e2a5ff, #8734c5);
+        }
+
+        .welcome-line {
+            color: #eadcff;
+            font-size: 14px;
+            margin-top: 2px;
+        }
+
+        @media (max-width: 768px) {
+            nav.sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                top: 0;
+            }
+
+            .page-title {
+                font-size: 29px;
+            }
+        }
+
+        /* Dashboard overview card refinements */
+        .members-list {
+            border: 1px solid rgba(202, 123, 255, 0.25);
+            border-radius: 16px;
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.24);
+        }
+
+        .overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            align-items: stretch;
+        }
+
+        .overview-item {
+            width: auto;
+            min-height: 135px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 22px;
+            text-align: left;
+            background: linear-gradient(145deg, rgba(105, 65, 170, 0.30), rgba(44, 19, 79, 0.42));
+            border: 1px solid rgba(202, 123, 255, 0.28);
+            border-radius: 16px;
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);
+            transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+        }
+
+        .overview-item:hover {
+            transform: translateY(-3px);
+            border-color: rgba(220, 166, 255, 0.55);
+            background: linear-gradient(145deg, rgba(125, 75, 195, 0.34), rgba(54, 23, 94, 0.48));
+        }
+
+        .overview-item h3 {
+            margin-bottom: 12px;
+            color: #e9c8ff;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+        }
+
+        .overview-item p,
+        .overview-item li {
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .overview-item .big-text {
+            font-size: 24px !important;
+            overflow-wrap: anywhere;
+        }
+
+        .workout-history li {
+            padding: 7px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .workout-history li:last-child {
+            border-bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            .overview {
+                grid-template-columns: 1fr;
+            }
+            .overview-item {
+                min-height: 110px;
+            }
+        }
 </style>
 </head>
 <body>
 <div class="admin-dashboard">
     <nav class="sidebar">
         <div class="sidebar-title-container">
-            <h2 class="admin-interface-title">User Interface</h2>
+            <div class="sidebar-brand-name">VIGOR <span>GYM</span></div>
+            <div class="sidebar-brand-subtitle">MEMBER PORTAL</div>
         </div>
+
+        <div class="sidebar-profile">
+            <div class="profile-icon"><i class="fas fa-user"></i></div>
+            <div class="profile-info">
+                <strong><?= h($user_name) ?></strong>
+                <span>Member</span>
+            </div>
+        </div>
+
         <ul>
             <?php foreach ($navLinks as $href => [$label, $active, $icon]): ?>
-                <li><a href="<?= h($href) ?>" class="<?= $active ? 'active' : '' ?>"><i class="<?= h($icon) ?>"></i> <?= h($label) ?></a></li>
+                <li>
+                    <a href="<?= h($href) ?>" class="<?= $active ? 'active' : '' ?>">
+                        <i class="<?= h($icon) ?>"></i>
+                        <span><?= h($label) ?></span>
+                    </a>
+                </li>
             <?php endforeach; ?>
         </ul>
     </nav>
 
     <div class="dashboard-content">
-        <div>
-            <h1>Dashboard Overview</h1>
+        <div class="page-heading">
+            <h1 class="page-title">Dashboard Overview</h1>
             <div class="welcome-line">Welcome back, <?= h($user_name) ?>!</div>
         </div>
 
