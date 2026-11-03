@@ -789,172 +789,44 @@ $navLinks = [
             }
         }
 
+        /* Payment history table refinement */
+        .table-wrap { overflow-x: auto; border: 1px solid rgba(202, 123, 255, .22); border-radius: 14px; background: rgba(25, 8, 45, .28); }
+        table { width: 100%; border-collapse: separate; border-spacing: 0; overflow: hidden; }
+        table th { padding: 16px 14px; background: linear-gradient(90deg, rgba(124, 44, 244, .48), rgba(171, 82, 242, .30)); color: #fff; font-size: 13px; font-weight: 700; letter-spacing: .35px; text-transform: uppercase; border-bottom: 1px solid rgba(226, 165, 255, .35); }
+        table td { padding: 15px 14px; color: #f7efff; font-size: 14px; border-bottom: 1px solid rgba(255, 255, 255, .09); background: rgba(255, 255, 255, .045); }
+        table tbody tr:nth-child(even) td { background: rgba(171, 82, 242, .075); }
+        table tbody tr:hover td { background: rgba(171, 82, 242, .17); transition: background .2s ease; }
+        table tbody tr:last-child td { border-bottom: 0; }
+        
 
-        /* VIGOR GYM USER INTERFACE - VISUAL-ONLY POLISH */
-        .admin-dashboard {
-            gap: 24px;
-            padding: 24px;
-        }
-
-        nav.sidebar {
-            border: 1px solid rgba(218, 163, 255, 0.24);
-            background: linear-gradient(180deg, rgba(35, 13, 57, 0.96) 0%, rgba(22, 5, 40, 0.96) 100%);
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-        }
-
+        /* VIGOR GYM - CONSISTENT USER INTERFACE */
         .sidebar-title-container {
-            background: transparent;
-            padding: 12px 0 18px;
-            border-bottom: 1px solid rgba(218, 163, 255, 0.18);
+            padding: 20px 12px 18px;
             margin-bottom: 18px;
-        }
-
-        .admin-interface-title {
-            margin-bottom: 0;
-            padding: 10px 8px 14px;
-            letter-spacing: 0.04em;
-            text-shadow: 0 0 18px rgba(202, 123, 255, 0.28);
-            border-bottom: 2px solid transparent;
-            border-image: linear-gradient(90deg, transparent, #d78cff, #a64dff, transparent) 1;
-        }
-
-        nav.sidebar ul li {
-            margin: 9px 0;
-        }
-
-        nav.sidebar ul li a {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            min-height: 46px;
-            padding: 11px 13px;
-            border: 1px solid transparent;
-            border-left: 4px solid transparent;
-            border-radius: 10px;
-            color: #f4eaff;
-            font-size: 14px;
-            transition: background 0.22s ease, border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
-        }
-
-        nav.sidebar ul li a i {
-            width: 19px;
+            background: linear-gradient(135deg, rgba(85, 35, 125, 0.78), rgba(35, 10, 55, 0.96));
             text-align: center;
-            color: #d9a7ff;
-            font-size: 15px;
-            flex: 0 0 19px;
+            border: 1px solid rgba(202, 123, 255, 0.25);
+            border-radius: 12px;
         }
-
-        nav.sidebar ul li a:hover {
-            padding-left: 16px;
-            background: rgba(171, 82, 242, 0.18);
-            border-color: rgba(218, 163, 255, 0.16);
-            transform: translateX(2px);
-        }
-
-        nav.sidebar ul li a.active,
-        .sidebar a.active {
-            padding-left: 13px;
-            color: #ffffff;
-            background: linear-gradient(100deg, rgba(164, 77, 255, 0.34), rgba(202, 123, 255, 0.12));
-            border: 1px solid rgba(218, 163, 255, 0.28);
-            border-left: 4px solid #e1a7ff;
-            box-shadow: inset 0 0 18px rgba(202, 123, 255, 0.08), 0 5px 16px rgba(0, 0, 0, 0.16);
-        }
-
-        nav.sidebar ul li a.active i {
-            color: #ffffff;
-        }
-
-        .dashboard-content > div:first-child h1 {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 13px;
-            padding-bottom: 12px;
-            font-size: clamp(30px, 3vw, 38px);
-            line-height: 1.2;
-            letter-spacing: -0.025em;
-            color: #ffffff;
-            text-shadow: 0 3px 14px rgba(0, 0, 0, 0.42);
-        }
-
-        .dashboard-content > div:first-child h1::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 76px;
-            height: 4px;
-            border-radius: 99px;
-            background: linear-gradient(90deg, #f0b7ff, #a64dff);
-            box-shadow: 0 0 14px rgba(202, 123, 255, 0.45);
-        }
-
-        .welcome-line {
-            margin-top: 0;
-            color: #ead8ff;
-            letter-spacing: 0.01em;
-        }
-
-
-        /* Payment history table: clearer hierarchy, spacing, and row scanning */
-        .history-card {
-            padding: 24px;
-            border: 1px solid rgba(202, 123, 255, 0.28);
-            background: linear-gradient(145deg, rgba(54, 27, 91, 0.48), rgba(25, 10, 48, 0.58));
-        }
-
-        .history-card h3 {
-            margin-bottom: 17px;
-            font-size: 18px;
-            letter-spacing: 0.01em;
-        }
-
-        .table-wrap {
-            border: 1px solid rgba(218, 163, 255, 0.18);
-            background: rgba(18, 7, 34, 0.22);
-            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16);
-        }
-
-        .history-card table {
-            border-collapse: separate;
-            border-spacing: 0;
-            background: transparent;
-        }
-
-        .history-card table th {
-            padding: 16px 15px;
-            background: linear-gradient(90deg, rgba(133, 63, 203, 0.52), rgba(104, 47, 170, 0.46));
-            color: #fff;
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 0.075em;
-            text-transform: uppercase;
-            white-space: nowrap;
-            border-bottom: 1px solid rgba(226, 185, 255, 0.28);
-        }
-
-        .history-card table td {
-            padding: 15px;
-            color: #fbf7ff;
-            font-size: 13px;
-            line-height: 1.55;
-            background: rgba(255, 255, 255, 0.035);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.075);
-            transition: background 0.18s ease;
-        }
-
-        .history-card table tbody tr:nth-child(even) td {
-            background: rgba(177, 111, 255, 0.055);
-        }
-
-        .history-card table tbody tr:hover td {
-            background: rgba(184, 117, 255, 0.14);
-        }
-
-        .history-card table tbody tr:last-child td {
-            border-bottom: 0;
-        }
-
+        .sidebar-brand-name { color: #fff; font-size: 23px; font-weight: 800; letter-spacing: 2px; line-height: 1.2; }
+        .sidebar-brand-name span { color: #d9a5ff; }
+        .sidebar-brand-subtitle { margin-top: 6px; color: #eadcff; font-size: 10px; font-weight: 700; letter-spacing: 3px; }
+        .sidebar-profile { display: flex; align-items: center; gap: 12px; padding: 12px; margin-bottom: 20px; background: rgba(171, 82, 242, 0.13); border: 1px solid rgba(202, 123, 255, 0.25); border-radius: 12px; }
+        .profile-icon { width: 42px; height: 42px; min-width: 42px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: linear-gradient(135deg, #d18aff, #8734c5); color: #fff; font-size: 18px; }
+        .profile-info { display: flex; flex-direction: column; min-width: 0; }
+        .profile-info strong { color: #fff; font-size: 13px; font-weight: 700; overflow-wrap: anywhere; }
+        .profile-info span { color: #d9baff; font-size: 11px; margin-top: 3px; }
+        nav.sidebar ul li { margin: 10px 0; }
+        nav.sidebar ul li a { display: flex; align-items: center; gap: 13px; min-height: 48px; padding: 12px 13px; border-radius: 9px; border-left: 5px solid transparent; color: #fff; font-size: 14px; font-weight: 600; text-decoration: none; transition: background .25s ease, color .25s ease, padding .25s ease, box-shadow .25s ease; }
+        nav.sidebar ul li a i { width: 22px; min-width: 22px; text-align: center; color: #d9a5ff; font-size: 16px; }
+        nav.sidebar ul li a span { line-height: 1.4; }
+        nav.sidebar ul li a:hover { background: rgba(171, 82, 242, .22); border-left-color: #ca7bff; padding-left: 18px; color: #f0caff; box-shadow: 0 3px 12px rgba(171, 82, 242, .12); }
+        nav.sidebar ul li a.active { background: linear-gradient(90deg, rgba(171, 82, 242, .45), rgba(115, 45, 160, .20)); border-left-color: #e2a5ff; color: #fff; font-weight: 700; box-shadow: 0 0 12px rgba(190, 100, 255, .18); }
+        .page-heading { position: relative; padding: 4px 0 16px; margin-bottom: 2px; }
+        .page-title { position: relative; display: inline-block; margin: 0 0 8px; color: #fff; font-size: 36px; font-weight: 800; line-height: 1.2; letter-spacing: -.5px; text-shadow: 0 2px 8px rgba(0, 0, 0, .35); }
+        .page-title::after { content: ""; display: block; width: 76px; height: 4px; margin-top: 10px; border-radius: 99px; background: linear-gradient(90deg, #e2a5ff, #8734c5); }
+        .welcome-line { color: #eadcff; font-size: 14px; margin-top: 2px; }
+        @media (max-width: 768px) { nav.sidebar { width: 100%; height: auto; position: relative; top: 0; } .page-title { font-size: 29px; } }
     </style>
 </head>
 <body>
@@ -962,14 +834,24 @@ $navLinks = [
 <div class="admin-dashboard">
     <nav class="sidebar">
         <div class="sidebar-title-container">
-            <h2 class="admin-interface-title">User Interface</h2>
+            <div class="sidebar-brand-name">VIGOR <span>GYM</span></div>
+            <div class="sidebar-brand-subtitle">MEMBER PORTAL</div>
+        </div>
+
+        <div class="sidebar-profile">
+            <div class="profile-icon"><i class="fas fa-user"></i></div>
+            <div class="profile-info">
+                <strong><?= h($user_name) ?></strong>
+                <span>Member</span>
+            </div>
         </div>
 
         <ul>
             <?php foreach ($navLinks as $href => [$label, $active, $icon]): ?>
                 <li>
                     <a href="<?= h($href) ?>" class="<?= $active ? 'active' : '' ?>">
-                        <i class="<?= h($icon) ?>"></i> <?= h($label) ?>
+                        <i class="<?= h($icon) ?>"></i>
+                        <span><?= h($label) ?></span>
                     </a>
                 </li>
             <?php endforeach; ?>
@@ -977,8 +859,8 @@ $navLinks = [
     </nav>
 
     <div class="dashboard-content">
-        <div>
-            <h1>Membership</h1>
+        <div class="page-heading">
+            <h1 class="page-title">Membership</h1>
             <div class="welcome-line">Welcome back, <?= h($user_name) ?>!</div>
         </div>
 
