@@ -331,15 +331,31 @@ $navLinks = [
             box-sizing: border-box;
         }
 
+        /* Always reserve the scrollbar space so the page does not shift sideways
+           when moving between short and long pages */
+        html {
+            overflow-y: scroll;
+        }
+
+        /* Background: always sized to the screen (not the page height), so it stays
+           sharp and looks the same as the dashboard, attendance and presets pages */
         body {
             font-family: 'Poppins', sans-serif;
+            background-color: #12021e;
+            color: #fff;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -1;
             background-image: url('bg.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            color: #fff;
-            display: flex;
-            min-height: 100vh;
         }
 
         .admin-dashboard {
@@ -364,9 +380,12 @@ $navLinks = [
         }
 
         .sidebar-title-container {
-            padding: 20px 0;
-            background: rgba(42, 26, 47, 0.88);
+            padding: 20px 12px 18px;
+            margin-bottom: 18px;
+            background: linear-gradient(135deg, rgba(85, 35, 125, 0.78), rgba(35, 10, 55, 0.96));
             text-align: center;
+            border: 1px solid rgba(202, 123, 255, 0.25);
+            border-radius: 12px;
         }
 
         nav.sidebar {
@@ -799,15 +818,7 @@ $navLinks = [
         table tbody tr:last-child td { border-bottom: 0; }
         
 
-        /* VIGOR GYM - CONSISTENT USER INTERFACE */
-        .sidebar-title-container {
-            padding: 20px 12px 18px;
-            margin-bottom: 18px;
-            background: linear-gradient(135deg, rgba(85, 35, 125, 0.78), rgba(35, 10, 55, 0.96));
-            text-align: center;
-            border: 1px solid rgba(202, 123, 255, 0.25);
-            border-radius: 12px;
-        }
+        /* VIGOR GYM - CONSISTENT USER INTERFACE (same sidebar brand box as the dashboard and presets pages) */
         .sidebar-brand-name { color: #fff; font-size: 23px; font-weight: 800; letter-spacing: 2px; line-height: 1.2; }
         .sidebar-brand-name span { color: #d9a5ff; }
         .sidebar-brand-subtitle { margin-top: 6px; color: #eadcff; font-size: 10px; font-weight: 700; letter-spacing: 3px; }
@@ -985,7 +996,7 @@ $navLinks = [
                             <span class="info-value"><?= h($latest_payment_id) ?></span>
                         </div>
 
-                        <div class="info-row"><div class="info-row">
+                        <div class="info-row">
                             <span class="info-label">Payment Date</span>
                             <span class="info-value"><?= h($latest_payment_date) ?></span>
                         </div>

@@ -6,8 +6,6 @@ date_default_timezone_set('Asia/Manila');
 
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-
-
 $conn = mysqli_connect("localhost", "root", "", "vigor_gymm", "3306");
 
 if (!$conn) {
@@ -16,11 +14,7 @@ if (!$conn) {
 
 }
 
-
-
 mysqli_set_charset($conn, "utf8mb4");
-
-
 
 function h($value)
 
@@ -30,8 +24,6 @@ function h($value)
 
 }
 
-
-
 function clean($conn, $value)
 
 {
@@ -40,15 +32,11 @@ function clean($conn, $value)
 
 }
 
-
-
 function queryValue($conn, $sql, $key, $default = 0)
 
 {
 
     $result = mysqli_query($conn, $sql);
-
-
 
     if (!$result) {
 
@@ -56,15 +44,11 @@ function queryValue($conn, $sql, $key, $default = 0)
 
     }
 
-
-
     $row = mysqli_fetch_assoc($result);
 
     return $row[$key] ?? $default;
 
 }
-
-
 
 function columnExists($conn, $table, $column)
 
@@ -80,13 +64,11 @@ function columnExists($conn, $table, $column)
 
 }
 
-
-
 function ensureWorkoutPresetsTable($conn)
 
 {
 
-   $createTable = "
+    $createTable = "
 
     CREATE TABLE IF NOT EXISTS workout_presets (
 
@@ -122,37 +104,33 @@ function ensureWorkoutPresetsTable($conn)
 
 ";
 
-
-
     mysqli_query($conn, $createTable);
 
+    $columns = [
 
+        'goal_focus' => "ALTER TABLE workout_presets ADD COLUMN goal_focus VARCHAR(100) NOT NULL DEFAULT 'General Fitness'",
 
-$columns = [
+        'difficulty_level' => "ALTER TABLE workout_presets ADD COLUMN difficulty_level VARCHAR(50) NOT NULL DEFAULT 'Beginner'",
 
-    'goal_focus' => "ALTER TABLE workout_presets ADD COLUMN goal_focus VARCHAR(100) NOT NULL DEFAULT 'General Fitness'",
+        'workout_days' => "ALTER TABLE workout_presets ADD COLUMN workout_days VARCHAR(100) DEFAULT ''",
 
-    'difficulty_level' => "ALTER TABLE workout_presets ADD COLUMN difficulty_level VARCHAR(50) NOT NULL DEFAULT 'Beginner'",
+        'duration_minutes' => "ALTER TABLE workout_presets ADD COLUMN duration_minutes INT NOT NULL DEFAULT 30",
 
-    'workout_days' => "ALTER TABLE workout_presets ADD COLUMN workout_days VARCHAR(100) DEFAULT ''",
+        'exercise_count' => "ALTER TABLE workout_presets ADD COLUMN exercise_count INT NOT NULL DEFAULT 0",
 
-    'duration_minutes' => "ALTER TABLE workout_presets ADD COLUMN duration_minutes INT NOT NULL DEFAULT 30",
+        'exercises' => "ALTER TABLE workout_presets ADD COLUMN exercises TEXT NOT NULL",
 
-    'exercise_count' => "ALTER TABLE workout_presets ADD COLUMN exercise_count INT NOT NULL DEFAULT 0",
+        'notes' => "ALTER TABLE workout_presets ADD COLUMN notes TEXT DEFAULT NULL",
 
-    'exercises' => "ALTER TABLE workout_presets ADD COLUMN exercises TEXT NOT NULL",
+        'is_favorite' => "ALTER TABLE workout_presets ADD COLUMN is_favorite TINYINT(1) NOT NULL DEFAULT 0",
 
-    'notes' => "ALTER TABLE workout_presets ADD COLUMN notes TEXT DEFAULT NULL",
+        'last_used_at' => "ALTER TABLE workout_presets ADD COLUMN last_used_at DATETIME DEFAULT NULL",
 
-    'is_favorite' => "ALTER TABLE workout_presets ADD COLUMN is_favorite TINYINT(1) NOT NULL DEFAULT 0",
+        'created_at' => "ALTER TABLE workout_presets ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP",
 
-    'last_used_at' => "ALTER TABLE workout_presets ADD COLUMN last_used_at DATETIME DEFAULT NULL",
+        'updated_at' => "ALTER TABLE workout_presets ADD COLUMN updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"
 
-    'created_at' => "ALTER TABLE workout_presets ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP",
-
-    'updated_at' => "ALTER TABLE workout_presets ADD COLUMN updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"
-
-];
+    ];
 
     foreach ($columns as $column => $query) {
 
@@ -166,8 +144,6 @@ $columns = [
 
 }
 
-
-
 function parseExerciseLines($text)
 
 {
@@ -176,15 +152,11 @@ function parseExerciseLines($text)
 
     $items = [];
 
-
-
     foreach ($lines as $line) {
 
         $line = trim($line);
 
-        $line = preg_replace('/^[•\-\*]\s*/u', '', $line);
-
-
+        $line = preg_replace('/^[•\-*]\s*/u', '', $line);
 
         if ($line !== '') {
 
@@ -194,13 +166,9 @@ function parseExerciseLines($text)
 
     }
 
-
-
     return $items;
 
 }
-
-
 
 function countExercises($text)
 
@@ -210,15 +178,11 @@ function countExercises($text)
 
 }
 
-
-
 function buildPresetUrl($extra = [])
 
 {
 
     $params = $_GET;
-
-
 
     foreach ($extra as $key => $value) {
 
@@ -234,17 +198,11 @@ function buildPresetUrl($extra = [])
 
     }
 
-
-
     return 'user_presets.php?' . http_build_query($params);
 
 }
 
-
-
 ensureWorkoutPresetsTable($conn);
-
-
 
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'member') {
 
@@ -253,8 +211,6 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role
     exit();
 
 }
-
-
 
 if (isset($_GET['logout'])) {
 
@@ -268,11 +224,7 @@ if (isset($_GET['logout'])) {
 
 }
 
-
-
 $user_id = (int)$_SESSION['user_id'];
-
-
 
 $userQuery = mysqli_query($conn, "
 
@@ -286,8 +238,6 @@ $userQuery = mysqli_query($conn, "
 
 ");
 
-
-
 if (!$userQuery || mysqli_num_rows($userQuery) === 0) {
 
     session_unset();
@@ -300,19 +250,13 @@ if (!$userQuery || mysqli_num_rows($userQuery) === 0) {
 
 }
 
-
-
 $user = mysqli_fetch_assoc($userQuery);
-
-
 
 $user_name = $user['full_name'] ?? ($user['username'] ?? 'Member');
 
 $membership_status = $user['status'] ?? 'Deactivated';
 
 $is_active = (int)($user['is_active'] ?? 0);
-
-
 
 if ($is_active !== 1 || $membership_status !== 'Active') {
 
@@ -326,15 +270,11 @@ if ($is_active !== 1 || $membership_status !== 'Active') {
 
 }
 
-
-
 $msg = '';
 
 $type = '';
 
 $showModal = false;
-
-
 
 if (isset($_GET['saved']) && $_GET['saved'] == '1') {
 
@@ -344,8 +284,6 @@ if (isset($_GET['saved']) && $_GET['saved'] == '1') {
 
 }
 
-
-
 if (isset($_GET['updated']) && $_GET['updated'] == '1') {
 
     $msg = 'Workout preset updated successfully.';
@@ -353,8 +291,6 @@ if (isset($_GET['updated']) && $_GET['updated'] == '1') {
     $type = 'success';
 
 }
-
-
 
 $presetId = 0;
 
@@ -371,8 +307,6 @@ $durationMinutes = 30;
 $exercises = '';
 
 $notes = '';
-
-
 
 if (isset($_POST['save_preset'])) {
 
@@ -394,11 +328,7 @@ if (isset($_POST['save_preset'])) {
 
     $showModal = true;
 
-
-
     $exerciseCount = countExercises($exercises);
-
-
 
     if ($presetName === '' || $goalFocus === '' || $difficultyLevel === '' || $exercises === '') {
 
@@ -432,8 +362,6 @@ if (isset($_POST['save_preset'])) {
 
         $notesSafe = clean($conn, $notes);
 
-
-
         if ($presetId > 0) {
 
             $update = mysqli_query($conn, "
@@ -459,8 +387,6 @@ if (isset($_POST['save_preset'])) {
                 WHERE id = $presetId AND user_id = $user_id
 
             ");
-
-
 
             if ($update) {
 
@@ -496,8 +422,6 @@ if (isset($_POST['save_preset'])) {
 
             ");
 
-
-
             if ($insert) {
 
                 header('Location: user_presets.php?saved=1');
@@ -522,8 +446,6 @@ if (isset($_POST['toggle_favorite'])) {
 
     $targetId = (int)($_POST['preset_id'] ?? 0);
 
-
-
     if ($targetId > 0) {
 
         $currentQuery = mysqli_query($conn, "
@@ -538,15 +460,11 @@ if (isset($_POST['toggle_favorite'])) {
 
         ");
 
-
-
         if ($currentQuery && mysqli_num_rows($currentQuery) > 0) {
 
             $currentRow = mysqli_fetch_assoc($currentQuery);
 
             $newValue = ((int)$currentRow['is_favorite'] === 1) ? 0 : 1;
-
-
 
             mysqli_query($conn, "
 
@@ -558,8 +476,6 @@ if (isset($_POST['toggle_favorite'])) {
 
             ");
 
-
-
             $msg = $newValue ? 'Preset added to favorites.' : 'Preset removed from favorites.';
 
             $type = 'success';
@@ -570,13 +486,9 @@ if (isset($_POST['toggle_favorite'])) {
 
 }
 
-
-
 if (isset($_POST['use_preset'])) {
 
     $targetId = (int)($_POST['preset_id'] ?? 0);
-
-
 
     if ($targetId > 0) {
 
@@ -590,8 +502,6 @@ if (isset($_POST['use_preset'])) {
 
         ");
 
-
-
         $msg = 'Preset marked as used.';
 
         $type = 'success';
@@ -600,13 +510,9 @@ if (isset($_POST['use_preset'])) {
 
 }
 
-
-
 if (isset($_POST['delete_preset'])) {
 
     $targetId = (int)($_POST['preset_id'] ?? 0);
-
-
 
     if ($targetId > 0) {
 
@@ -618,8 +524,6 @@ if (isset($_POST['delete_preset'])) {
 
         ");
 
-
-
         $msg = 'Preset deleted successfully.';
 
         $type = 'success';
@@ -628,13 +532,9 @@ if (isset($_POST['delete_preset'])) {
 
 }
 
-
-
 if (isset($_GET['edit'])) {
 
     $editId = (int)$_GET['edit'];
-
-
 
     if ($editId > 0) {
 
@@ -650,13 +550,9 @@ if (isset($_GET['edit'])) {
 
         ");
 
-
-
         if ($editQuery && mysqli_num_rows($editQuery) > 0) {
 
             $editPreset = mysqli_fetch_assoc($editQuery);
-
-
 
             $presetId = (int)($editPreset['id'] ?? 0);
 
@@ -682,19 +578,13 @@ if (isset($_GET['edit'])) {
 
 }
 
-
-
 $goalFilter = trim($_GET['goal'] ?? 'All Goals');
 
 $difficultyFilter = trim($_GET['difficulty'] ?? 'All Levels');
 
 $search = trim($_GET['search'] ?? '');
 
-
-
 $whereParts = ["user_id = $user_id"];
-
-
 
 if ($goalFilter !== 'All Goals') {
 
@@ -704,8 +594,6 @@ if ($goalFilter !== 'All Goals') {
 
 }
 
-
-
 if ($difficultyFilter !== 'All Levels') {
 
     $difficultyFilterSafe = clean($conn, $difficultyFilter);
@@ -713,8 +601,6 @@ if ($difficultyFilter !== 'All Levels') {
     $whereParts[] = "difficulty_level = '$difficultyFilterSafe'";
 
 }
-
-
 
 if ($search !== '') {
 
@@ -734,11 +620,7 @@ if ($search !== '') {
 
 }
 
-
-
 $whereSql = "WHERE " . implode(' AND ', $whereParts);
-
-
 
 $presetRows = [];
 
@@ -754,8 +636,6 @@ $presetQuery = mysqli_query($conn, "
 
 ");
 
-
-
 if ($presetQuery) {
 
     while ($row = mysqli_fetch_assoc($presetQuery)) {
@@ -766,13 +646,9 @@ if ($presetQuery) {
 
 }
 
-
-
 $viewId = (int)($_GET['view'] ?? 0);
 
 $selectedPreset = null;
-
-
 
 if ($viewId > 0) {
 
@@ -790,15 +666,11 @@ if ($viewId > 0) {
 
 }
 
-
-
 if ($selectedPreset === null && !empty($presetRows)) {
 
     $selectedPreset = $presetRows[0];
 
 }
-
-
 
 $totalPresets = (int)queryValue(
 
@@ -811,8 +683,6 @@ $totalPresets = (int)queryValue(
     0
 
 );
-
-
 
 $favoritePresetName = queryValue(
 
@@ -834,8 +704,6 @@ $favoritePresetName = queryValue(
 
 );
 
-
-
 $lastUsedPresetName = queryValue(
 
     $conn,
@@ -856,21 +724,15 @@ $lastUsedPresetName = queryValue(
 
 );
 
-
-
 $recommendedPresetName = !empty($favoritePresetName) && $favoritePresetName !== 'None yet'
 
     ? $favoritePresetName
 
     : (!empty($presetRows) ? ($presetRows[0]['preset_name'] ?? 'No preset available') : 'No preset available');
 
-
-
 $goalOptions = ['All Goals', 'General Fitness', 'Weight Loss', 'Muscle Gain', 'Strength', 'Home Workout', 'Fat Loss', 'Beginner'];
 
 $difficultyOptions = ['All Levels', 'Beginner', 'Intermediate', 'Advanced'];
-
-
 
 $navLinks = [
 
@@ -900,17 +762,11 @@ $navLinks = [
 
     <title>User Workout Presets</title>
 
-
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-
 
     <style>
 
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
-
-
 
         * {
 
@@ -921,8 +777,6 @@ $navLinks = [
             box-sizing: border-box;
 
         }
-
-
 
         body {
 
@@ -944,8 +798,6 @@ $navLinks = [
 
         }
 
-
-
         .admin-dashboard {
 
             width: 100%;
@@ -966,8 +818,6 @@ $navLinks = [
 
         }
 
-
-
         .admin-interface-title {
 
             font-size: 24px;
@@ -986,8 +836,6 @@ $navLinks = [
 
         }
 
-
-
         .sidebar-title-container {
 
             padding: 20px 0;
@@ -998,41 +846,18 @@ $navLinks = [
 
         }
 
-
-
         nav.sidebar {
-
-            width: 260px;
-
-            min-width: 260px;
-
-            flex: 0 0 260px;
-
-            height: calc(100vh - 40px);
-
-            min-height: 600px;
-
+            width: 250px;
             background: linear-gradient(180deg, rgba(42, 26, 47, 0.88) 0%, rgba(34, 5, 61, 0.88) 100%);
-
             padding: 20px;
-
             border-radius: 12px;
-
             position: sticky;
-
             top: 20px;
-
-            overflow-y: auto;
-
+            height: calc(100vh - 40px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
-
             backdrop-filter: blur(8px);
-
             -webkit-backdrop-filter: blur(8px);
-
         }
-
-
 
         nav.sidebar ul {
 
@@ -1042,15 +867,11 @@ $navLinks = [
 
         }
 
-
-
         nav.sidebar ul li {
 
             margin: 15px 0;
 
         }
-
-
 
         nav.sidebar ul li a {
 
@@ -1074,8 +895,6 @@ $navLinks = [
 
         }
 
-
-
         nav.sidebar ul li a:hover,
 
         .sidebar a.active {
@@ -1087,8 +906,6 @@ $navLinks = [
             padding-left: 15px;
 
         }
-
-
 
         .dashboard-content {
 
@@ -1104,8 +921,6 @@ $navLinks = [
 
         }
 
-
-
         h1 {
 
             font-size: 36px;
@@ -1118,8 +933,6 @@ $navLinks = [
 
         }
 
-
-
         .welcome-line {
 
             color: #f3e7ff;
@@ -1130,8 +943,6 @@ $navLinks = [
 
         }
 
-
-
         .summary-grid {
 
             display: flex;
@@ -1141,8 +952,6 @@ $navLinks = [
             flex-wrap: wrap;
 
         }
-
-
 
         .summary-card,
 
@@ -1166,8 +975,6 @@ $navLinks = [
 
         }
 
-
-
         .summary-card {
 
             padding: 20px;
@@ -1177,8 +984,6 @@ $navLinks = [
             text-align: center;
 
         }
-
-
 
         .summary-card h3,
 
@@ -1196,8 +1001,6 @@ $navLinks = [
 
         }
 
-
-
         .summary-card p {
 
             font-size: 24px;
@@ -1210,15 +1013,11 @@ $navLinks = [
 
         }
 
-
-
         .filter-card {
 
             padding:20px;
 
         }
-
-
 
         .filter-top {
 
@@ -1235,8 +1034,6 @@ $navLinks = [
             margin-bottom: 16px;
 
         }
-
-
 
         .add-btn,
 
@@ -1266,8 +1063,6 @@ $navLinks = [
 
         }
 
-
-
         .add-btn,
 
         .mini-btn {
@@ -1278,8 +1073,6 @@ $navLinks = [
 
         }
 
-
-
         .add-btn {
 
             padding: 12px 18px;
@@ -1287,8 +1080,6 @@ $navLinks = [
             gap: 8px;
 
         }
-
-
 
         .mini-btn,
 
@@ -1302,15 +1093,11 @@ $navLinks = [
 
         }
 
-
-
         .danger-btn {
 
             background: linear-gradient(180deg, #c45dff, #8d33f7);
 
         }
-
-
 
         .filter-form {
 
@@ -1323,8 +1110,6 @@ $navLinks = [
             align-items: center;
 
         }
-
-
 
         .filter-form input,
 
@@ -1352,8 +1137,6 @@ $navLinks = [
 
         }
 
-
-
         .filter-form input,
 
         .filter-form select {
@@ -1362,8 +1145,6 @@ $navLinks = [
 
         }
 
-
-
         .filter-form select option,
 
         .modal-card select option {
@@ -1371,8 +1152,6 @@ $navLinks = [
             color: #000;
 
         }
-
-
 
         .content-grid {
 
@@ -1384,8 +1163,6 @@ $navLinks = [
 
         }
 
-
-
         .presets-list {
 
             display: flex;
@@ -1396,8 +1173,6 @@ $navLinks = [
 
         }
 
-
-
         .preset-library-card {
 
             width: 100%;
@@ -1406,17 +1181,15 @@ $navLinks = [
 
             justify-content: center;
 
-            margin-bottom: 16px; /* spacing between cards */
+            margin-bottom: 16px;
 
         }
 
-
-
         .preset-card {
 
-            width: 100%; /* take full width of the library container */
+            width: 100%;
 
-            max-width: 100%; /* prevent shrinking */
+            max-width: 100%;
 
             padding: 18px;
 
@@ -1427,8 +1200,6 @@ $navLinks = [
             box-shadow: 0 6px 18px rgba(0,0,0,0.2);
 
         }
-
-
 
         .preset-head {
 
@@ -1446,8 +1217,6 @@ $navLinks = [
 
         }
 
-
-
         .preset-title {
 
             font-size: 30px;
@@ -1457,8 +1226,6 @@ $navLinks = [
             color: #fff;
 
         }
-
-
 
         .badge-row {
 
@@ -1471,8 +1238,6 @@ $navLinks = [
             margin-top: 12px;
 
         }
-
-
 
         .badge {
 
@@ -1492,8 +1257,6 @@ $navLinks = [
 
         }
 
-
-
         .favorite-badge {
 
             background: rgba(250, 204, 21, 0.18);
@@ -1502,9 +1265,7 @@ $navLinks = [
 
         }
 
-
-
-       .preset-meta {
+        .preset-meta {
 
             display: grid;
 
@@ -1516,8 +1277,6 @@ $navLinks = [
 
         }
 
-
-
         .meta-item {
 
             font-size: 20px;
@@ -1526,15 +1285,11 @@ $navLinks = [
 
         }
 
-
-
         .meta-item strong {
 
             color: #e9c8ff;
 
         }
-
-
 
         .exercise-preview {
 
@@ -1544,8 +1299,6 @@ $navLinks = [
 
         }
 
-
-
         .exercise-preview li {
 
             margin-bottom: 6px;
@@ -1553,8 +1306,6 @@ $navLinks = [
             color: #fff;
 
         }
-
-
 
         .card-actions {
 
@@ -1568,15 +1319,11 @@ $navLinks = [
 
         }
 
-
-
         .action-form {
 
             display: inline;
 
         }
-
-
 
         .detail-card {
 
@@ -1585,8 +1332,6 @@ $navLinks = [
             height: fit-content;
 
         }
-
-
 
         .detail-card p,
 
@@ -1598,15 +1343,11 @@ $navLinks = [
 
         }
 
-
-
         .detail-row {
 
             margin-bottom: 12px;
 
         }
-
-
 
         .detail-label {
 
@@ -1616,8 +1357,6 @@ $navLinks = [
 
         }
 
-
-
         .detail-exercises {
 
             padding-left: 22px;
@@ -1626,15 +1365,11 @@ $navLinks = [
 
         }
 
-
-
         .detail-exercises li {
 
             margin-bottom: 8px;
 
         }
-
-
 
         .empty-box {
 
@@ -1645,8 +1380,6 @@ $navLinks = [
             color: #eadcff;
 
         }
-
-
 
         .msg {
 
@@ -1662,8 +1395,6 @@ $navLinks = [
 
         }
 
-
-
         .msg.success {
 
             color: #d8ffe5;
@@ -1672,8 +1403,6 @@ $navLinks = [
 
         }
 
-
-
         .msg.error {
 
             color: #ffb0d2;
@@ -1681,8 +1410,6 @@ $navLinks = [
             box-shadow: 0 0 10px rgba(255, 120, 180, 0.06);
 
         }
-
-
 
         .modal {
 
@@ -1704,8 +1431,6 @@ $navLinks = [
 
         }
 
-
-
         .modal-card {
 
             width: 100%;
@@ -1724,8 +1449,6 @@ $navLinks = [
 
         }
 
-
-
         .modal-header {
 
             display: flex;
@@ -1740,8 +1463,6 @@ $navLinks = [
 
         }
 
-
-
         .modal-header h2 {
 
             font-size: 24px;
@@ -1749,8 +1470,6 @@ $navLinks = [
             color: #f5eaff;
 
         }
-
-
 
         .close-btn {
 
@@ -1772,8 +1491,6 @@ $navLinks = [
 
         }
 
-
-
         .form-grid {
 
             display: grid;
@@ -1783,8 +1500,6 @@ $navLinks = [
             gap: 14px;
 
         }
-
-
 
         .form-group {
 
@@ -1796,15 +1511,11 @@ $navLinks = [
 
         }
 
-
-
         .form-group.full {
 
             grid-column: 1 / -1;
 
         }
-
-
 
         .form-group label {
 
@@ -1816,8 +1527,6 @@ $navLinks = [
 
         }
 
-
-
         .modal-card textarea {
 
             min-height: 140px;
@@ -1825,8 +1534,6 @@ $navLinks = [
             resize: vertical;
 
         }
-
-
 
         .modal-actions {
 
@@ -1842,8 +1549,6 @@ $navLinks = [
 
         }
 
-
-
         @media (max-width: 1100px) {
 
             .summary-card {
@@ -1851,8 +1556,6 @@ $navLinks = [
                 width: calc(50% - 8px);
 
             }
-
-
 
             .content-grid {
 
@@ -1862,8 +1565,6 @@ $navLinks = [
 
         }
 
-
-
         @media (max-width: 768px) {
 
             .admin-dashboard {
@@ -1871,8 +1572,6 @@ $navLinks = [
                 flex-direction: column;
 
             }
-
-
 
             nav.sidebar {
 
@@ -1886,15 +1585,11 @@ $navLinks = [
 
             }
 
-
-
             .summary-card {
 
                 width: 100%;
 
             }
-
-
 
             .form-grid {
 
@@ -1902,15 +1597,11 @@ $navLinks = [
 
             }
 
-
-
             .preset-meta {
 
                 grid-template-columns: 1fr;
 
             }
-
-
 
             .filter-form input,
 
@@ -1923,8 +1614,6 @@ $navLinks = [
             }
 
         }
-
-
 
         /* Workout preset card refinement (this page uses cards, not a table) */
 
@@ -1945,10 +1634,6 @@ $navLinks = [
         .meta-item { font-size: 15px; line-height: 1.6; }
 
         .filter-card { border-radius: 15px; }
-
-
-
-
 
         /* VIGOR GYM - CONSISTENT USER INTERFACE */
 
@@ -1986,7 +1671,7 @@ $navLinks = [
 
         nav.sidebar ul li { margin: 10px 0; }
 
-        nav.sidebar ul li a { display: flex; align-items: center; gap: 13px; min-height: 48px; padding: 12px 13px; border-radius: 9px; border-left: 5px solid transparent; color: #fff; font-size: 18px; font-weight: 600; text-decoration: none; transition: background .25s ease, color .25s ease, padding .25s ease, box-shadow .25s ease; }
+        nav.sidebar ul li a { display: flex; align-items: center; gap: 13px; min-height: 48px; padding: 12px 13px; border-radius: 9px; border-left: 5px solid transparent; color: #fff; font-size: 20px; font-weight: 600; text-decoration: none; transition: background .25s ease, color .25s ease, padding .25s ease, box-shadow .25s ease; }
 
         nav.sidebar ul li a i { width: 22px; min-width: 22px; text-align: center; color: #d9a5ff; font-size: 16px; }
 
@@ -2006,137 +1691,11 @@ $navLinks = [
 
         @media (max-width: 768px) { nav.sidebar { width: 100%; height: auto; position: relative; top: 0; } .page-title { font-size: 29px; } }
 
-
-
-    /* CONSISTENT USER SIDEBAR RESPONSIVE SIZE */
-
-@media (max-width: 768px) {
-
-    nav.sidebar {
-
-        width: 100%;
-
-        min-width: 0;
-
-        flex: 0 0 auto;
-
-        height: auto;
-
-        min-height: 0;
-
-        position: relative;
-
-        top: 0;
-
-    }
-
-}
-
-
-
-/* MATCH THE ADMIN REPORTS LAYOUT */
-
-.admin-dashboard {
-
-    width: 100%;
-
-    min-height: 100vh;
-
-    display: flex;
-
-    flex-direction: row;
-
-    align-items: flex-start;
-
-    gap: 16px;
-
-    padding: 16px;
-
-    box-sizing: border-box;
-
-}
-
-
-
-/* MATCH THE ADMIN SIDEBAR SIZE */
-
-.admin-dashboard nav.sidebar {
-
-    width: 260px;
-
-    min-width: 260px;
-
-    flex: 0 0 260px;
-
-
-
-    height: calc(100vh - 40px);
-
-    min-height: 600px;
-
-
-
-    position: sticky;
-
-    top: 20px;
-
-
-
-    padding: 20px;
-
-    overflow-y: auto;
-
-    box-sizing: border-box;
-
-}
-
-
-
-/* RESPONSIVE DESIGN */
-
-@media (max-width: 768px) {
-
-    .admin-dashboard {
-
-        flex-direction: column;
-
-        gap: 14px;
-
-        padding: 12px;
-
-    }
-
-
-
-    .admin-dashboard nav.sidebar {
-
-        position: relative;
-
-        top: 0;
-
-        width: 100%;
-
-        min-width: 0;
-
-        flex: 0 0 auto;
-
-        height: auto;
-
-        min-height: 0;
-
-    }
-
-}
-
-
-
-    </style>
+        </style>
 
 </head>
 
 <body>
-
-
 
 <div class="admin-dashboard">
 
@@ -2149,8 +1708,6 @@ $navLinks = [
             <div class="sidebar-brand-subtitle">MEMBER PORTAL</div>
 
         </div>
-
-
 
         <div class="sidebar-profile">
 
@@ -2165,8 +1722,6 @@ $navLinks = [
             </div>
 
         </div>
-
-
 
         <ul>
 
@@ -2190,8 +1745,6 @@ $navLinks = [
 
     </nav>
 
-
-
     <div class="dashboard-content">
 
         <div class="page-heading">
@@ -2202,15 +1755,11 @@ $navLinks = [
 
         </div>
 
-
-
         <?php if ($msg !== ''): ?>
 
             <div class="msg <?= h($type) ?>"><?= h($msg) ?></div>
 
         <?php endif; ?>
-
-
 
         <div class="summary-grid">
 
@@ -2222,8 +1771,6 @@ $navLinks = [
 
             </div>
 
-
-
             <div class="summary-card">
 
                 <h3>Favorite Preset</h3>
@@ -2232,8 +1779,6 @@ $navLinks = [
 
             </div>
 
-
-
             <div class="summary-card">
 
                 <h3>Last Used Preset</h3>
@@ -2241,8 +1786,6 @@ $navLinks = [
                 <p><?= h($lastUsedPresetName) ?></p>
 
             </div>
-
-
 
             <div class="summary-card">
 
@@ -2253,8 +1796,6 @@ $navLinks = [
             </div>
 
         </div>
-
-
 
         <div class="filter-card">
 
@@ -2269,8 +1810,6 @@ $navLinks = [
                 </button>
 
             </div>
-
-
 
             <form method="get" class="filter-form">
 
@@ -2288,8 +1827,6 @@ $navLinks = [
 
                 </select>
 
-
-
                 <select name="difficulty" onchange="this.form.submit()">
 
                     <?php foreach ($difficultyOptions as $option): ?>
@@ -2303,8 +1840,6 @@ $navLinks = [
                     <?php endforeach; ?>
 
                 </select>
-
-
 
                 <input
 
@@ -2321,8 +1856,6 @@ $navLinks = [
             </form>
 
         </div>
-
-
 
         <div class="content-grid">
 
@@ -2370,8 +1903,6 @@ $navLinks = [
 
                             </div>
 
-
-
                             <div class="preset-meta">
 
                                 <div class="meta-item"><strong>Workout Days:</strong> <?= h($row['workout_days'] ?: 'Flexible') ?></div>
@@ -2383,8 +1914,6 @@ $navLinks = [
                                 <div class="meta-item"><strong>Last Used:</strong> <?= !empty($row['last_used_at']) ? h(date('M j, Y g:i A', strtotime($row['last_used_at']))) : 'Not yet used' ?></div>
 
                             </div>
-
-
 
                             <?php if (!empty($previewItems)): ?>
 
@@ -2399,8 +1928,6 @@ $navLinks = [
                                 </ul>
 
                             <?php endif; ?>
-
-
 
                             <div class="card-actions">
 
@@ -2446,15 +1973,11 @@ $navLinks = [
 
             </div>
 
-
-
         </div>
 
     </div>
 
 </div>
-
-
 
 <div class="modal" id="presetModal">
 
@@ -2468,13 +1991,9 @@ $navLinks = [
 
         </div>
 
-
-
         <form method="post">
 
             <input type="hidden" name="preset_id" value="<?= (int)$presetId ?>">
-
-
 
             <div class="form-grid">
 
@@ -2485,8 +2004,6 @@ $navLinks = [
                     <input type="text" id="preset_name" name="preset_name" value="<?= h($presetName) ?>" required>
 
                 </div>
-
-
 
                 <div class="form-group">
 
@@ -2508,8 +2025,6 @@ $navLinks = [
 
                 </div>
 
-
-
                 <div class="form-group">
 
                     <label for="difficulty_level">Difficulty Level</label>
@@ -2530,8 +2045,6 @@ $navLinks = [
 
                 </div>
 
-
-
                 <div class="form-group">
 
                     <label for="workout_days">Workout Days</label>
@@ -2540,8 +2053,6 @@ $navLinks = [
 
                 </div>
 
-
-
                 <div class="form-group">
 
                     <label for="duration_minutes">Duration (Minutes)</label>
@@ -2549,8 +2060,6 @@ $navLinks = [
                     <input type="number" id="duration_minutes" name="duration_minutes" value="<?= (int)$durationMinutes ?>" min="1" required>
 
                 </div>
-
-
 
                 <div class="form-group full">
 
@@ -2566,8 +2075,6 @@ Plank - 3 sets x 30 seconds" required><?= h($exercises) ?></textarea>
 
                 </div>
 
-
-
                 <div class="form-group full">
 
                     <label for="notes">Notes</label>
@@ -2577,8 +2084,6 @@ Plank - 3 sets x 30 seconds" required><?= h($exercises) ?></textarea>
                 </div>
 
             </div>
-
-
 
             <div class="modal-actions">
 
@@ -2598,8 +2103,6 @@ Plank - 3 sets x 30 seconds" required><?= h($exercises) ?></textarea>
 
 </div>
 
-
-
 <script>
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -2612,8 +2115,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const cancelPresetModal = document.getElementById('cancelPresetModal');
 
-
-
     if (openPresetModal) {
 
         openPresetModal.addEventListener('click', function () {
@@ -2623,8 +2124,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
     }
-
-
 
     if (closePresetModal) {
 
@@ -2642,8 +2141,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     }
 
-
-
     if (cancelPresetModal) {
 
         cancelPresetModal.addEventListener('click', function () {
@@ -2659,8 +2156,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
     }
-
-
 
     window.addEventListener('click', function (event) {
 
@@ -2681,8 +2176,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 </script>
-
-
 
 </body>
 
