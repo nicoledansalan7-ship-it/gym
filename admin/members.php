@@ -852,14 +852,14 @@ body {
 
 nav.sidebar,
 .sidebar {
-    width: 210px;
-    min-width: 210px;
-    flex: 0 0 210px;
+    width: 260px;
+    min-width: 260px;
+    flex: 0 0 260px;
     height: calc(100vh - 40px);
     min-height: 600px;
     position: sticky;
     top: 20px;
-    padding: 16px;
+    padding: 20px;
     overflow-y: auto;
     border: 1px solid rgba(202, 123, 255, 0.12);
     border-radius: 12px;
@@ -870,9 +870,9 @@ nav.sidebar,
 }
 
 .sidebar-brand {
-    min-height: 74px;
+    min-height: 90px;
     margin: 0 0 12px;
-    padding: 12px 8px 10px;
+    padding: 14px 10px 12px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -886,7 +886,7 @@ nav.sidebar,
 
 .sidebar-brand-name {
     color: #fff;
-    font-size: 17px;
+    font-size: 24px;
     line-height: 1.15;
     font-weight: 800;
     letter-spacing: 0.5px;
@@ -899,33 +899,33 @@ nav.sidebar,
 .sidebar-brand-subtitle {
     margin-top: 5px;
     color: #eadcff;
-    font-size: 8px;
+    font-size: 11px;
     font-weight: 800;
     letter-spacing: 1.5px;
 }
 
 .sidebar-profile {
-    min-height: 58px;
+    min-height: 72px;
     margin-bottom: 14px;
-    padding: 9px 10px;
+    padding: 11px 13px;
     display: flex;
     align-items: center;
-    gap: 9px;
+    gap: 12px;
     border: 1px solid rgba(202, 123, 255, 0.30);
     border-radius: 9px;
     background: rgba(171, 82, 242, 0.16);
 }
 
 .sidebar-avatar {
-    width: 34px;
-    height: 34px;
-    min-width: 34px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
     color: #fff;
-    font-size: 15px;
+    font-size: 20px;
     background: linear-gradient(145deg, #e4a8ff, #9138d9);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.20);
 }
@@ -940,7 +940,7 @@ nav.sidebar,
 .sidebar-profile-name {
     overflow: hidden;
     color: #fff;
-    font-size: 10px;
+    font-size: 15px;
     font-weight: 800;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -949,7 +949,7 @@ nav.sidebar,
 .sidebar-profile-role {
     margin-top: 3px;
     color: #eadcff;
-    font-size: 9px;
+    font-size: 13px;
     font-weight: 500;
 }
 
@@ -962,18 +962,18 @@ nav.sidebar ul,
 
 nav.sidebar ul li,
 .sidebar ul li {
-    margin: 7px 0;
+    margin: 10px 0;
 }
 
 nav.sidebar ul li a,
 .sidebar ul li a {
-    min-height: 43px;
+    min-height: 56px;
     display: flex;
     align-items: center;
-    gap: 11px;
-    padding: 10px 11px;
+    gap: 14px;
+    padding: 13px 15px;
     color: #fff;
-    font-size: 11px;
+    font-size: 16px;
     line-height: 1.35;
     font-weight: 700;
     text-decoration: none;
@@ -985,10 +985,10 @@ nav.sidebar ul li a,
 
 nav.sidebar ul li a i,
 .sidebar ul li a i {
-    width: 16px;
-    min-width: 16px;
+    width: 24px;
+    min-width: 24px;
     color: #d7a2ff;
-    font-size: 13px;
+    font-size: 19px;
     text-align: center;
 }
 
@@ -999,7 +999,7 @@ nav.sidebar ul li a.active,
     color: #fff;
     background: linear-gradient(90deg, rgba(171, 82, 242, 0.34), rgba(171, 82, 242, 0.10));
     border-left-color: #ca7bff;
-    padding-left: 14px;
+    padding-left: 18px;
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
 }
 
@@ -1097,9 +1097,10 @@ h1 {
 
     <ul>
         <?php
-            $currentPage = basename($_SERVER['PHP_SELF']);
+            // Use $currentFile here so the pagination variable $currentPage is not overwritten.
+            $currentFile = basename($_SERVER['PHP_SELF']);
             foreach ($navLinks as $href => [$label, $active, $icon]):
-                $isActive = ($currentPage === basename(parse_url($href, PHP_URL_PATH))) ? 'active' : '';
+                $isActive = ($currentFile === basename(parse_url($href, PHP_URL_PATH))) ? 'active' : '';
         ?>
             <li>
                 <a href="<?= htmlspecialchars($href, ENT_QUOTES, 'UTF-8') ?>" class="<?= $isActive ?>">
