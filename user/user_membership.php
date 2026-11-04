@@ -394,7 +394,7 @@ $navLinks = [
         nav.sidebar ul li a {
             display: block;
             color: #fff;
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 600;
             text-decoration: none;
             padding: 10px;
@@ -817,7 +817,7 @@ $navLinks = [
         .profile-info strong { color: #fff; font-size: 13px; font-weight: 700; overflow-wrap: anywhere; }
         .profile-info span { color: #d9baff; font-size: 11px; margin-top: 3px; }
         nav.sidebar ul li { margin: 10px 0; }
-        nav.sidebar ul li a { display: flex; align-items: center; gap: 13px; min-height: 48px; padding: 12px 13px; border-radius: 9px; border-left: 5px solid transparent; color: #fff; font-size: 14px; font-weight: 600; text-decoration: none; transition: background .25s ease, color .25s ease, padding .25s ease, box-shadow .25s ease; }
+        nav.sidebar ul li a { display: flex; align-items: center; gap: 13px; min-height: 48px; padding: 12px 13px; border-radius: 9px; border-left: 5px solid transparent; color: #fff; font-size: 20px; font-weight: 600; text-decoration: none; transition: background .25s ease, color .25s ease, padding .25s ease, box-shadow .25s ease; }
         nav.sidebar ul li a i { width: 22px; min-width: 22px; text-align: center; color: #d9a5ff; font-size: 16px; }
         nav.sidebar ul li a span { line-height: 1.4; }
         nav.sidebar ul li a:hover { background: rgba(171, 82, 242, .22); border-left-color: #ca7bff; padding-left: 18px; color: #f0caff; box-shadow: 0 3px 12px rgba(171, 82, 242, .12); }
@@ -985,7 +985,7 @@ $navLinks = [
                             <span class="info-value"><?= h($latest_payment_id) ?></span>
                         </div>
 
-                        <div class="info-row">
+                        <div class="info-row"><div class="info-row">
                             <span class="info-label">Payment Date</span>
                             <span class="info-value"><?= h($latest_payment_date) ?></span>
                         </div>
