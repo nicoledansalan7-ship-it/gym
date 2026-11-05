@@ -1211,22 +1211,16 @@ $navLinks = [
 
    ========================================================= */
 
-*:root* {
-
+:root {
     --vg-purple: #a245ff;
-
     --vg-purple-dark: #7c2cf4;
-
     --vg-purple-light: #ca7bff;
 
     --vg-sidebar-top: rgba(42, 26, 47, 0.94);
-
     --vg-sidebar-bottom: rgba(34, 5, 61, 0.96);
 
     --vg-glass-border: rgba(202, 123, 255, 0.22);
-
 }
-
 body {
 
     font-family: 'Poppins', sans-serif;
